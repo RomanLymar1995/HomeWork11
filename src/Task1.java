@@ -1,17 +1,12 @@
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Task1 {
     public static String formatNames(List<String> names) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < names.size(); i++) {
-            if (i % 2 == 0) {
-                int index = i / 2 + 1;
-                result.append(index).append(". ").append(names.get(i)).append(", ");
-            }
-        }
-        if (result.length() > 0) {
-            result.delete(result.length() - 2, result.length());
-        }
-        return result.toString();
+        return IntStream.range(0, names.size())
+                .filter(i -> i % 2 == 0)
+                .mapToObj(i -> (i / 2 + 1) + ". " + names.get(i))
+                .collect(Collectors.joining(", "));
     }
 }
